@@ -1,0 +1,270 @@
+{
+  "app": {
+    "name": "Prompt Studio Pro"
+  },
+  "nav": {
+    "home": "Home",
+    "saved": "Saved",
+    "settings": "Settings",
+    "comingSoon": "Coming soon",
+    "category": {
+      "image": "Image",
+      "text": "Text",
+      "code": "Code"
+    },
+    "task": {
+      "image": { "create": "Create", "edit": "Edit" },
+      "text": { "write": "Write", "rewrite": "Rewrite", "summarize": "Summarize" },
+      "code": { "generate": "Generate", "debug": "Debug", "review": "Review" }
+    }
+  },
+  "sidebar": {
+    "footerTitle": "Build better prompts.",
+    "footerSub": "Get better results."
+  },
+  "home": {
+    "heroTitlePart1": "Create Better",
+    "heroTitleAccent": "Prompts",
+    "heroSubtitle": "Visual prompt engineering for everyone. No complex syntax, no guesswork — just choose, customize, and create powerful prompts.",
+    "categorySub": {
+      "image": "Create & Edit",
+      "text": "Write & Summarize",
+      "code": "Generate & Debug"
+    }
+  },
+  "wizard": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "next": "Next",
+    "reviewPrompt": "Review prompt",
+    "stepOf": "Step {current} of {total}",
+    "stepsLabel": "Prompt-building steps",
+    "notFound": "We couldn't find that flow yet."
+  },
+  "result": {
+    "title": "Your prompt",
+    "subtitle": "Here's your final prompt. Copy it or save it for later.",
+    "empty": "Answer a few steps to generate your prompt.",
+    "copyPrompt": "Copy prompt",
+    "copied": "Prompt copied to clipboard",
+    "save": "Save",
+    "saved": "Prompt saved",
+    "tip": "You can always go back and make changes to get a better result.",
+    "previewLabel": "Framing preview"
+  },
+  "saved": {
+    "title": "Saved prompts",
+    "emptyTitle": "No saved prompts yet",
+    "emptySub": "Prompts you save will show up here.",
+    "delete": "Delete",
+    "justNow": "Just now",
+    "minutesAgo": "{count} min ago",
+    "hoursAgo": "{count} hr ago",
+    "daysAgo": "{count} d ago"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Appearance",
+    "themeDark": "Dark",
+    "themeLight": "Light",
+    "exportTitle": "Export your data",
+    "exportSub": "Download your saved prompts and preferences as a JSON file.",
+    "exportButton": "Export",
+    "importTitle": "Import your data",
+    "importSub": "Restore saved prompts and preferences from a JSON file.",
+    "importButton": "Import",
+    "importSuccess": "Data imported",
+    "importError": "That file couldn't be imported",
+    "version": "Prompt Studio Pro · v1.0 · runs entirely in your browser"
+  },
+  "suggestions": {
+    "fantasyCastle": "A castle in the mountains",
+    "peacefulForest": "A peaceful forest",
+    "cyberpunkCity": "A futuristic city",
+    "cozyRoom": "A cozy room"
+  },
+  "promptEngine": {
+    "aspectRatioLabel": "Aspect ratio",
+    "moodPrefix": "with a",
+    "setIn": "set in",
+    "editVerbs": {
+      "remove": "Remove",
+      "replaceBackground": "Replace the background",
+      "changeLighting": "Change the lighting",
+      "changeStyle": "Change the style",
+      "extend": "Extend the image",
+      "restore": "Restore and repair damage in the image",
+      "upscale": "Upscale the image"
+    }
+  },
+  "templates": {
+    "image": {
+      "create": {
+        "steps": {
+          "subject": {
+            "title": "What do you want to create?",
+            "description": "Describe your subject in a few words.",
+            "placeholder": "e.g. a castle in the mountains, a futuristic city, a cozy room..."
+          },
+          "aspectRatio": {
+            "title": "Aspect ratio",
+            "description": "Choose the image size that fits your vision."
+          },
+          "composition": {
+            "title": "Composition",
+            "description": "How do you want to frame your subject?"
+          },
+          "cameraAngle": {
+            "title": "Camera angle",
+            "description": "Choose the camera's point of view."
+          },
+          "lighting": {
+            "title": "Lighting",
+            "description": "Pick a lighting mood."
+          },
+          "style": {
+            "title": "Style",
+            "description": "Pick a visual style."
+          },
+          "mood": {
+            "title": "Mood",
+            "description": "Define the atmosphere."
+          },
+          "environment": {
+            "title": "Environment",
+            "description": "Choose the setting."
+          },
+          "additionalDetails": {
+            "title": "Additional details",
+            "description": "Anything else to add? This is optional.",
+            "placeholder": "e.g. include a dragon in the sky, autumn colors..."
+          }
+        }
+      },
+      "edit": {
+        "steps": {
+          "action": {
+            "title": "What do you want to do?",
+            "description": "Choose the edit you'd like to make."
+          },
+          "targetObject": {
+            "title": "What should be removed?",
+            "description": "Describe the object or area to remove.",
+            "placeholder": "e.g. the person in the background, the power lines..."
+          },
+          "newBackground": {
+            "title": "Describe the new background",
+            "description": "What should replace the current background?",
+            "placeholder": "e.g. a sunny beach, a modern office, a starry sky..."
+          },
+          "lighting": {
+            "title": "New lighting",
+            "description": "Pick the lighting mood to apply."
+          },
+          "style": {
+            "title": "New style",
+            "description": "Pick the visual style to apply."
+          },
+          "extendDirection": {
+            "title": "Extend in which direction?",
+            "description": "Choose where to expand the canvas."
+          },
+          "restoreNotes": {
+            "title": "Anything specific to fix?",
+            "description": "Optional — describe scratches, tears, or missing areas.",
+            "placeholder": "e.g. repair the torn corner, fix the faded colors..."
+          },
+          "upscaleFactor": {
+            "title": "Upscale factor",
+            "description": "Choose how much larger the result should be."
+          },
+          "additionalDetails": {
+            "title": "Additional details",
+            "description": "Anything else to add? This is optional.",
+            "placeholder": "e.g. keep the original colors, preserve facial features..."
+          }
+        }
+      }
+    }
+  },
+  "optionValues": {
+    "aspectRatio": {
+      "1:1": { "label": "1:1", "sub": "Square" },
+      "16:9": { "label": "16:9", "sub": "Landscape" },
+      "9:16": { "label": "9:16", "sub": "Portrait" },
+      "4:3": { "label": "4:3", "sub": "Classic" },
+      "3:2": { "label": "3:2", "sub": "Photo" },
+      "21:9": { "label": "21:9", "sub": "Ultra wide" }
+    },
+    "composition": {
+      "close-up": { "label": "Close Up", "sub": "Fills the frame" },
+      "medium-shot": { "label": "Medium Shot", "sub": "Balanced framing" },
+      "wide-shot": { "label": "Wide Shot", "sub": "Shows the surroundings" },
+      "centered": { "label": "Centered", "sub": "Symmetrical focus" },
+      "negative-space": { "label": "Negative Space", "sub": "Subject off to one side" },
+      "rule-of-thirds": { "label": "Rule of Thirds", "sub": "Off-center balance" }
+    },
+    "cameraAngle": {
+      "eye": { "label": "Eye Level", "sub": "Natural viewpoint" },
+      "low-angle": { "label": "Low Angle", "sub": "Looking up" },
+      "high-angle": { "label": "High Angle", "sub": "Looking down" },
+      "dutch-angle": { "label": "Dutch Angle", "sub": "Tilted, dynamic" },
+      "overhead": { "label": "Overhead", "sub": "Bird's-eye view" },
+      "close-up-angle": { "label": "Macro", "sub": "Extreme close-up" }
+    },
+    "lighting": {
+      "natural": { "label": "Natural Light", "sub": "Soft daylight" },
+      "golden-hour": { "label": "Golden Hour", "sub": "Warm, low sun" },
+      "studio-softbox": { "label": "Studio Softbox", "sub": "Even, controlled" },
+      "backlit": { "label": "Backlit", "sub": "Light from behind" },
+      "low-key": { "label": "Low Key", "sub": "Moody, dark" },
+      "neon": { "label": "Neon", "sub": "Vibrant, colorful" }
+    },
+    "style": {
+      "photorealistic": { "label": "Photorealistic", "sub": "Lifelike detail" },
+      "fantasy-art": { "label": "Fantasy Art", "sub": "Painterly, epic" },
+      "anime": { "label": "Anime", "sub": "Japanese animation" },
+      "watercolor": { "label": "Watercolor", "sub": "Soft, hand-painted" },
+      "cyberpunk": { "label": "Cyberpunk", "sub": "Neon futurism" },
+      "minimalist": { "label": "Minimalist", "sub": "Clean, simple" }
+    },
+    "mood": {
+      "serene": { "label": "Serene", "sub": "Calm and peaceful" },
+      "dramatic": { "label": "Dramatic", "sub": "Bold and intense" },
+      "whimsical": { "label": "Whimsical", "sub": "Playful and light" },
+      "eerie": { "label": "Eerie", "sub": "Unsettling, mysterious" },
+      "epic": { "label": "Epic", "sub": "Grand and sweeping" },
+      "cozy": { "label": "Cozy", "sub": "Warm and inviting" }
+    },
+    "environment": {
+      "mountains": { "label": "Mountains", "sub": "" },
+      "urban": { "label": "Urban", "sub": "" },
+      "underwater": { "label": "Underwater", "sub": "" },
+      "space": { "label": "Space", "sub": "" },
+      "desert": { "label": "Desert", "sub": "" },
+      "interior": { "label": "Interior", "sub": "" }
+    },
+    "action": {
+      "remove-object": { "label": "Remove object", "sub": "Remove unwanted objects" },
+      "replace-background": { "label": "Replace background", "sub": "Change the background" },
+      "change-lighting": { "label": "Change lighting", "sub": "Adjust the lighting mood" },
+      "change-style": { "label": "Change style", "sub": "Transform the visual style" },
+      "extend-image": { "label": "Extend image", "sub": "Expand the image area" },
+      "restore-image": { "label": "Restore image", "sub": "Fix old or damaged photos" },
+      "upscale": { "label": "Upscale", "sub": "Increase image resolution" }
+    },
+    "extendDirection": {
+      "up": { "label": "Up", "sub": "" },
+      "down": { "label": "Down", "sub": "" },
+      "left": { "label": "Left", "sub": "" },
+      "right": { "label": "Right", "sub": "" },
+      "all-sides": { "label": "All sides", "sub": "" }
+    },
+    "upscaleFactor": {
+      "2x": { "label": "2×", "sub": "Double resolution" },
+      "4x": { "label": "4×", "sub": "Quadruple resolution" },
+      "8x": { "label": "8×", "sub": "Maximum detail" }
+    }
+  }
+}

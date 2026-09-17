@@ -1,0 +1,22 @@
+/* ==========================================================================
+   RTL-specific overrides.
+   Most layout already uses logical properties (inset-inline-*, margin-
+   inline-*, border-inline-*, text-align: start) so it flips automatically
+   with dir="rtl". This file only holds the handful of things that don't:
+   directional icons (arrows that point "forward"/"back" in reading order).
+   ========================================================================== */
+
+[dir="rtl"] .icon-directional svg {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .chip-select select {
+  background-position: left 8px center;
+}
+
+/* Number-like content (aspect ratios, percentages) stays LTR even inside
+   an RTL page, per standard typographic convention. */
+[dir="rtl"] .badge,
+[dir="rtl"] .option-card-label {
+  unicode-bidi: plaintext;
+}

@@ -1,0 +1,221 @@
+/* ==========================================================================
+   Prompt Studio Pro — Design Tokens & Base Styles
+   ========================================================================== */
+
+:root {
+  /* Surfaces */
+  --bg: #0a0d1a;
+  --bg-elevated: #0d1224;
+  --surface: #11162a;
+  --surface-2: #171d38;
+  --surface-hover: #1c2340;
+  --border: #262c4a;
+  --border-soft: #1a2038;
+
+  /* Text */
+  --text: #eef0fa;
+  --text-muted: #9096b8;
+  --text-faint: #5c628a;
+
+  /* Brand */
+  --primary: #7c6ef6;
+  --primary-2: #5b8df6;
+  --primary-soft: rgba(124, 110, 246, 0.14);
+  --gradient-brand: linear-gradient(135deg, var(--primary), var(--primary-2));
+
+  /* Category accents */
+  --accent-image: #7c6ef6;
+  --accent-image-2: #5b8df6;
+  --accent-text: #2fd3a3;
+  --accent-text-2: #1fb98d;
+  --accent-code: #f5a94e;
+  --accent-code-2: #ef8c3a;
+
+  /* Feedback */
+  --success: #2fd3a3;
+  --danger: #f2617a;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 0 1px rgba(124, 110, 246, 0.35), 0 8px 24px rgba(124, 110, 246, 0.18);
+
+  /* Type */
+  --font-body: "Inter", "Vazirmatn", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Inter", "Vazirmatn", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Motion */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+
+  /* Layout */
+  --sidebar-w: 260px;
+  --header-h: 64px;
+  --content-max: 880px;
+}
+
+:root[data-theme="light"] {
+  --bg: #f5f6fb;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f0f1f9;
+  --surface-hover: #e9ebf7;
+  --border: #e1e3f0;
+  --border-soft: #ececf6;
+  --text: #171a2e;
+  --text-muted: #5c6180;
+  --text-faint: #9296b3;
+  --primary-soft: rgba(124, 110, 246, 0.1);
+  --shadow-2: 0 8px 24px rgba(30, 34, 70, 0.08);
+  --shadow-glow: 0 0 0 1px rgba(124, 110, 246, 0.25), 0 8px 24px rgba(124, 110, 246, 0.12);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f5f6fb;
+    --bg-elevated: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f0f1f9;
+    --surface-hover: #e9ebf7;
+    --border: #e1e3f0;
+    --border-soft: #ececf6;
+    --text: #171a2e;
+    --text-muted: #5c6180;
+    --text-faint: #9296b3;
+    --primary-soft: rgba(124, 110, 246, 0.1);
+    --shadow-2: 0 8px 24px rgba(30, 34, 70, 0.08);
+    --shadow-glow: 0 0 0 1px rgba(124, 110, 246, 0.25), 0 8px 24px rgba(124, 110, 246, 0.12);
+  }
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--dur-base) var(--ease), color var(--dur-base) var(--ease);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------- Focus ring (accessibility) ---------- */
+:focus-visible {
+  outline: 2px solid var(--primary-2);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- Scrollbars ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------- Type scale ---------- */
+.text-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-faint {
+  color: var(--text-faint);
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- RTL base ---------- */
+[dir="rtl"] body {
+  font-family: "Vazirmatn", var(--font-body);
+}
+
+/* Visually hidden but accessible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
