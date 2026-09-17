@@ -85,7 +85,7 @@ function buildLanguageSelect() {
     {
       className: "chip-select",
       "aria-label": t("settings.language"),
-      style: "border:none;appearance:none;-webkit-appearance:none;padding-inline-end:22px;",
+      style: "border:none;appearance:none;-webkit-appearance:none;",
       on: {
         change: (e) => setLocale(e.target.value),
       },
@@ -93,7 +93,7 @@ function buildLanguageSelect() {
     Object.entries(LOCALES).map(([code, meta]) => el("option", { value: code, text: meta.label }))
   );
   select.value = getLocale();
-  return el("div", { className: "chip-select", style: "padding:0 6px 0 12px;" }, [icon("globe"), select]);
+  return el("div", { className: "chip-select" }, [select]);
 }
 
 function buildThemeToggle() {
