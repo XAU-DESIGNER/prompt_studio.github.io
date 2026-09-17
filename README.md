@@ -2,6 +2,12 @@
 
 > Visual prompt engineering for everyone.
 
+<p align="center">
+  <a href="https://xau-designer.github.io/prompt_studio_pro/">
+    <strong>🚀 Open Prompt Studio Pro</strong>
+  </a>
+</p>
+
 A free, open-source tool for building better AI prompts through a visual interface.
 
 ## 🚧 Status
