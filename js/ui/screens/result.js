@@ -5,6 +5,16 @@ import { aspectRatioVisual, compositionVisual } from "../visuals.js";
 import { saveGeneratedPrompt } from "../../state/saved-prompts.js";
 import { navigate } from "../router.js";
 
+/** The "Image → Create" flow keeps aspectRatio at config.aspectRatio, but
+ *  "Image → Edit" namespaces it under the selected action's key (e.g.
+ *  "change-ratio__aspectRatio") since a person can combine multiple
+ *  actions. Look in both places so the preview badge stays accurate. */
+function findAspectRatio(config) {
+  if (config.aspectRatio) return config.aspectRatio;
+  const key = Object.keys(config).find((k) => k.endsWith("__aspectRatio"));
+  return key ? config[key] : null;
+}
+
 function showToast(message) {
   const toast = el("div", { className: "toast", html: `${icon("check")}<span></span>` });
   toast.querySelector("span").textContent = message;
@@ -69,9 +79,9 @@ export function renderResultView(container, { template, config, promptText, onBa
               saveGeneratedPrompt({
                 category: template.category,
                 task: template.task,
-                title: config.subject || config.targetObject || config.newBackground || "",
+                title: config.subject || "",
                 promptText,
-                aspectRatio: config.aspectRatio || null,
+                aspectRatio: findAspectRatio(config),
               });
               showToast(t("result.saved"));
             },
@@ -85,15 +95,16 @@ export function renderResultView(container, { template, config, promptText, onBa
 
   // Visual preview card — an illustrative diagram of the chosen framing,
   // not a rendered image (this tool has no image-generation backend).
+  const aspectRatio = findAspectRatio(config);
   const previewSvg = config.composition
     ? compositionVisual(config.composition)
-    : aspectRatioVisual(config.aspectRatio || "1:1");
+    : aspectRatioVisual(aspectRatio || "1:1");
 
   const previewCard = el("div", { className: "preview-card" }, [
     el("div", { className: "preview-visual", html: previewSvg }),
     el("div", { className: "preview-meta" }, [
       el("span", { text: t("result.previewLabel") }),
-      el("span", { className: "badge", text: config.aspectRatio || "1:1" }),
+      el("span", { className: "badge", text: aspectRatio || "1:1" }),
     ]),
   ]);
 

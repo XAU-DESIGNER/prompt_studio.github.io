@@ -33,49 +33,153 @@ export const imageCreateTemplate = {
         kind: "visual-grid",
         visual: "aspectRatio",
         required: true,
-        options: ["1:1", "16:9", "9:16", "4:3", "3:2", "21:9"],
+        options: ["1:1", "16:9", "9:16", "4:3", "3:2", "21:9", "2:3", "5:4"],
       },
       {
         id: "composition",
         kind: "visual-grid",
         visual: "composition",
         required: false,
-        options: ["close-up", "medium-shot", "wide-shot", "centered", "negative-space", "rule-of-thirds"],
+        options: [
+          "close-up",
+          "medium-shot",
+          "wide-shot",
+          "centered",
+          "negative-space",
+          "rule-of-thirds",
+          "silhouette",
+          "symmetry",
+          "framed",
+          "leading-lines",
+        ],
       },
       {
         id: "cameraAngle",
         kind: "visual-grid",
         visual: "cameraAngle",
         required: false,
-        options: ["eye", "low-angle", "high-angle", "dutch-angle", "overhead", "close-up-angle"],
+        options: [
+          "eye",
+          "low-angle",
+          "high-angle",
+          "dutch-angle",
+          "overhead",
+          "close-up-angle",
+          "worms-eye",
+          "front-view",
+          "profile-view",
+        ],
       },
       {
         id: "lighting",
         kind: "visual-grid",
         visual: "lighting",
         required: false,
-        options: ["natural", "golden-hour", "studio-softbox", "backlit", "low-key", "neon"],
+        options: [
+          "natural",
+          "golden-hour",
+          "studio-softbox",
+          "backlit",
+          "low-key",
+          "neon",
+          "moonlight",
+          "candlelight",
+          "overcast",
+          "hard-light",
+          "rim-light",
+          "volumetric",
+        ],
       },
       {
         id: "style",
         kind: "icon-grid",
         icon: "style",
         required: false,
-        options: ["photorealistic", "fantasy-art", "anime", "watercolor", "cyberpunk", "minimalist"],
+        options: [
+          "photorealistic",
+          "fantasy-art",
+          "anime",
+          "watercolor",
+          "cyberpunk",
+          "minimalist",
+          "oil-painting",
+          "pencil-sketch",
+          "3d-render",
+          "pixel-art",
+          "pop-art",
+          "steampunk",
+          "vaporwave",
+          "comic-book",
+          "impressionist",
+          "low-poly",
+        ],
+      },
+      {
+        id: "colorPalette",
+        kind: "icon-grid",
+        icon: "palette",
+        required: false,
+        options: ["warm", "cool", "monochrome", "pastel", "vibrant", "earth-tones", "neon", "sepia"],
       },
       {
         id: "mood",
         kind: "icon-grid",
         icon: "sparkle",
         required: false,
-        options: ["serene", "dramatic", "whimsical", "eerie", "epic", "cozy"],
+        options: [
+          "serene",
+          "dramatic",
+          "whimsical",
+          "eerie",
+          "epic",
+          "cozy",
+          "mysterious",
+          "romantic",
+          "melancholic",
+          "triumphant",
+          "nostalgic",
+          "playful",
+          "peaceful",
+          "ominous",
+        ],
       },
       {
         id: "environment",
         kind: "icon-grid",
         icon: "globe",
         required: false,
-        options: ["mountains", "urban", "underwater", "space", "desert", "interior"],
+        options: [
+          "mountains",
+          "urban",
+          "underwater",
+          "space",
+          "desert",
+          "interior",
+          "beach",
+          "forest",
+          "castle",
+          "market",
+          "ruins",
+          "arctic",
+          "jungle",
+          "cave",
+          "rooftop",
+          "temple",
+        ],
+      },
+      {
+        id: "timeOfDay",
+        kind: "icon-grid",
+        icon: "sun",
+        required: false,
+        options: ["dawn", "morning", "midday", "afternoon", "dusk", "night", "blue-hour"],
+      },
+      {
+        id: "weather",
+        kind: "icon-grid",
+        icon: "globe",
+        required: false,
+        options: ["clear", "cloudy", "rainy", "stormy", "foggy", "snowy", "windy"],
       },
       {
         id: "additionalDetails",
@@ -123,6 +227,12 @@ export const imageCreateTemplate = {
       );
     }
 
+    if (config.colorPalette) {
+      descriptors.push(
+        `${t("promptEngine.paletteLabel")} ${t(`optionValues.colorPalette.${config.colorPalette}`).label}`
+      );
+    }
+
     if (config.mood) {
       descriptors.push(
         `${t("promptEngine.moodPrefix")} ${t(`optionValues.mood.${config.mood}`).label
@@ -134,6 +244,18 @@ export const imageCreateTemplate = {
       descriptors.push(
         `${t("promptEngine.setIn")} ${t(`optionValues.environment.${config.environment}`).label
         }`
+      );
+    }
+
+    if (config.timeOfDay) {
+      descriptors.push(
+        t(`optionValues.timeOfDay.${config.timeOfDay}`).label
+      );
+    }
+
+    if (config.weather) {
+      descriptors.push(
+        t(`optionValues.weather.${config.weather}`).label
       );
     }
 

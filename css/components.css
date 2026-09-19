@@ -344,6 +344,12 @@
   height: 10px;
 }
 
+/* Multi-select action list: square "checkbox" badge instead of a radio
+   circle, so it reads as "pick any number" rather than "pick one". */
+.option-row-check.is-multi {
+  border-radius: 6px;
+}
+
 /* ---------- Inputs ---------- */
 .field {
   display: flex;

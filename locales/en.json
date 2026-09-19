@@ -13,9 +13,20 @@
       "code": "Code"
     },
     "task": {
-      "image": { "create": "Create", "edit": "Edit" },
-      "text": { "write": "Write", "rewrite": "Rewrite", "summarize": "Summarize" },
-      "code": { "generate": "Generate", "debug": "Debug", "review": "Review" }
+      "image": {
+        "create": "Create",
+        "edit": "Edit"
+      },
+      "text": {
+        "write": "Write",
+        "rewrite": "Rewrite",
+        "summarize": "Summarize"
+      },
+      "code": {
+        "generate": "Generate",
+        "debug": "Debug",
+        "review": "Review"
+      }
     }
   },
   "sidebar": {
@@ -39,7 +50,8 @@
     "reviewPrompt": "Review prompt",
     "stepOf": "Step {current} of {total}",
     "stepsLabel": "Prompt-building steps",
-    "notFound": "We couldn't find that flow yet."
+    "notFound": "We couldn't find that flow yet.",
+    "multiHint": "You can select more than one."
   },
   "result": {
     "title": "Your prompt",
@@ -95,8 +107,15 @@
       "changeStyle": "Change the style",
       "extend": "Extend the image",
       "restore": "Restore and repair damage in the image",
-      "upscale": "Upscale the image"
-    }
+      "upscale": "Upscale the image",
+      "changeRatio": "Change the aspect ratio",
+      "colorGrade": "Apply a color grade",
+      "addObject": "Add",
+      "blurBackground": "Blur the background",
+      "sharpenDenoise": "Sharpen and reduce noise",
+      "colorize": "Colorize the image"
+    },
+    "paletteLabel": "with a"
   },
   "templates": {
     "image": {
@@ -139,15 +158,23 @@
             "title": "Additional details",
             "description": "Anything else to add? This is optional.",
             "placeholder": "e.g. include a dragon in the sky, autumn colors..."
+          },
+          "colorPalette": {
+            "title": "Color palette",
+            "description": "Pick an overall color palette."
+          },
+          "timeOfDay": {
+            "title": "Time of day",
+            "description": "Choose when the scene takes place."
+          },
+          "weather": {
+            "title": "Weather",
+            "description": "Choose the weather in the scene."
           }
         }
       },
       "edit": {
         "steps": {
-          "action": {
-            "title": "What do you want to do?",
-            "description": "Choose the edit you'd like to make."
-          },
           "targetObject": {
             "title": "What should be removed?",
             "description": "Describe the object or area to remove.",
@@ -183,6 +210,31 @@
             "title": "Additional details",
             "description": "Anything else to add? This is optional.",
             "placeholder": "e.g. keep the original colors, preserve facial features..."
+          },
+          "actions": {
+            "title": "What do you want to do?",
+            "description": "Choose one or more edits to make."
+          },
+          "aspectRatio": {
+            "title": "New aspect ratio",
+            "description": "Choose the aspect ratio to apply."
+          },
+          "colorPalette": {
+            "title": "Color grade",
+            "description": "Pick the color grade to apply."
+          },
+          "newObject": {
+            "title": "What should be added?",
+            "description": "Describe the object or element to add.",
+            "placeholder": "e.g. a bird in the sky, a cup of coffee on the table..."
+          },
+          "blurIntensity": {
+            "title": "Blur intensity",
+            "description": "Choose how strong the background blur should be."
+          },
+          "colorizeTone": {
+            "title": "Color tone",
+            "description": "Optional — pick a tone for the colorization."
           }
         }
       }
@@ -190,81 +242,570 @@
   },
   "optionValues": {
     "aspectRatio": {
-      "1:1": { "label": "1:1", "sub": "Square" },
-      "16:9": { "label": "16:9", "sub": "Landscape" },
-      "9:16": { "label": "9:16", "sub": "Portrait" },
-      "4:3": { "label": "4:3", "sub": "Classic" },
-      "3:2": { "label": "3:2", "sub": "Photo" },
-      "21:9": { "label": "21:9", "sub": "Ultra wide" }
+      "1:1": {
+        "label": "1:1",
+        "sub": "Square"
+      },
+      "16:9": {
+        "label": "16:9",
+        "sub": "Landscape"
+      },
+      "9:16": {
+        "label": "9:16",
+        "sub": "Portrait"
+      },
+      "4:3": {
+        "label": "4:3",
+        "sub": "Classic"
+      },
+      "3:2": {
+        "label": "3:2",
+        "sub": "Photo"
+      },
+      "21:9": {
+        "label": "21:9",
+        "sub": "Ultra wide"
+      },
+      "2:3": {
+        "label": "2:3",
+        "sub": "Tall photo"
+      },
+      "5:4": {
+        "label": "5:4",
+        "sub": "Near square"
+      }
     },
     "composition": {
-      "close-up": { "label": "Close Up", "sub": "Fills the frame" },
-      "medium-shot": { "label": "Medium Shot", "sub": "Balanced framing" },
-      "wide-shot": { "label": "Wide Shot", "sub": "Shows the surroundings" },
-      "centered": { "label": "Centered", "sub": "Symmetrical focus" },
-      "negative-space": { "label": "Negative Space", "sub": "Subject off to one side" },
-      "rule-of-thirds": { "label": "Rule of Thirds", "sub": "Off-center balance" }
+      "close-up": {
+        "label": "Close Up",
+        "sub": "Fills the frame"
+      },
+      "medium-shot": {
+        "label": "Medium Shot",
+        "sub": "Balanced framing"
+      },
+      "wide-shot": {
+        "label": "Wide Shot",
+        "sub": "Shows the surroundings"
+      },
+      "centered": {
+        "label": "Centered",
+        "sub": "Symmetrical focus"
+      },
+      "negative-space": {
+        "label": "Negative Space",
+        "sub": "Subject off to one side"
+      },
+      "rule-of-thirds": {
+        "label": "Rule of Thirds",
+        "sub": "Off-center balance"
+      },
+      "silhouette": {
+        "label": "Silhouette",
+        "sub": "Subject in shadow"
+      },
+      "symmetry": {
+        "label": "Symmetry",
+        "sub": "Mirrored balance"
+      },
+      "framed": {
+        "label": "Framed",
+        "sub": "Frame within a frame"
+      },
+      "leading-lines": {
+        "label": "Leading Lines",
+        "sub": "Lines draw the eye in"
+      }
     },
     "cameraAngle": {
-      "eye": { "label": "Eye Level", "sub": "Natural viewpoint" },
-      "low-angle": { "label": "Low Angle", "sub": "Looking up" },
-      "high-angle": { "label": "High Angle", "sub": "Looking down" },
-      "dutch-angle": { "label": "Dutch Angle", "sub": "Tilted, dynamic" },
-      "overhead": { "label": "Overhead", "sub": "Bird's-eye view" },
-      "close-up-angle": { "label": "Macro", "sub": "Extreme close-up" }
+      "eye": {
+        "label": "Eye Level",
+        "sub": "Natural viewpoint"
+      },
+      "low-angle": {
+        "label": "Low Angle",
+        "sub": "Looking up"
+      },
+      "high-angle": {
+        "label": "High Angle",
+        "sub": "Looking down"
+      },
+      "dutch-angle": {
+        "label": "Dutch Angle",
+        "sub": "Tilted, dynamic"
+      },
+      "overhead": {
+        "label": "Overhead",
+        "sub": "Bird's-eye view"
+      },
+      "close-up-angle": {
+        "label": "Macro",
+        "sub": "Extreme close-up"
+      },
+      "worms-eye": {
+        "label": "Worm's Eye",
+        "sub": "Extreme low angle"
+      },
+      "front-view": {
+        "label": "Front View",
+        "sub": "Straight-on"
+      },
+      "profile-view": {
+        "label": "Profile View",
+        "sub": "Side-on"
+      }
     },
     "lighting": {
-      "natural": { "label": "Natural Light", "sub": "Soft daylight" },
-      "golden-hour": { "label": "Golden Hour", "sub": "Warm, low sun" },
-      "studio-softbox": { "label": "Studio Softbox", "sub": "Even, controlled" },
-      "backlit": { "label": "Backlit", "sub": "Light from behind" },
-      "low-key": { "label": "Low Key", "sub": "Moody, dark" },
-      "neon": { "label": "Neon", "sub": "Vibrant, colorful" }
+      "natural": {
+        "label": "Natural Light",
+        "sub": "Soft daylight"
+      },
+      "golden-hour": {
+        "label": "Golden Hour",
+        "sub": "Warm, low sun"
+      },
+      "studio-softbox": {
+        "label": "Studio Softbox",
+        "sub": "Even, controlled"
+      },
+      "backlit": {
+        "label": "Backlit",
+        "sub": "Light from behind"
+      },
+      "low-key": {
+        "label": "Low Key",
+        "sub": "Moody, dark"
+      },
+      "neon": {
+        "label": "Neon",
+        "sub": "Vibrant, colorful"
+      },
+      "moonlight": {
+        "label": "Moonlight",
+        "sub": "Cool night glow"
+      },
+      "candlelight": {
+        "label": "Candlelight",
+        "sub": "Warm, flickering"
+      },
+      "overcast": {
+        "label": "Overcast",
+        "sub": "Flat, diffused"
+      },
+      "hard-light": {
+        "label": "Hard Light",
+        "sub": "Sharp shadows"
+      },
+      "rim-light": {
+        "label": "Rim Light",
+        "sub": "Glowing edge outline"
+      },
+      "volumetric": {
+        "label": "Volumetric",
+        "sub": "Visible light rays"
+      }
     },
     "style": {
-      "photorealistic": { "label": "Photorealistic", "sub": "Lifelike detail" },
-      "fantasy-art": { "label": "Fantasy Art", "sub": "Painterly, epic" },
-      "anime": { "label": "Anime", "sub": "Japanese animation" },
-      "watercolor": { "label": "Watercolor", "sub": "Soft, hand-painted" },
-      "cyberpunk": { "label": "Cyberpunk", "sub": "Neon futurism" },
-      "minimalist": { "label": "Minimalist", "sub": "Clean, simple" }
+      "photorealistic": {
+        "label": "Photorealistic",
+        "sub": "Lifelike detail"
+      },
+      "fantasy-art": {
+        "label": "Fantasy Art",
+        "sub": "Painterly, epic"
+      },
+      "anime": {
+        "label": "Anime",
+        "sub": "Japanese animation"
+      },
+      "watercolor": {
+        "label": "Watercolor",
+        "sub": "Soft, hand-painted"
+      },
+      "cyberpunk": {
+        "label": "Cyberpunk",
+        "sub": "Neon futurism"
+      },
+      "minimalist": {
+        "label": "Minimalist",
+        "sub": "Clean, simple"
+      },
+      "oil-painting": {
+        "label": "Oil Painting",
+        "sub": "Rich brushstrokes"
+      },
+      "pencil-sketch": {
+        "label": "Pencil Sketch",
+        "sub": "Hand-drawn lines"
+      },
+      "3d-render": {
+        "label": "3D Render",
+        "sub": "CGI, studio render"
+      },
+      "pixel-art": {
+        "label": "Pixel Art",
+        "sub": "Retro, blocky"
+      },
+      "pop-art": {
+        "label": "Pop Art",
+        "sub": "Bold, graphic"
+      },
+      "steampunk": {
+        "label": "Steampunk",
+        "sub": "Brass and gears"
+      },
+      "vaporwave": {
+        "label": "Vaporwave",
+        "sub": "Retro-futuristic"
+      },
+      "comic-book": {
+        "label": "Comic Book",
+        "sub": "Ink and halftone"
+      },
+      "impressionist": {
+        "label": "Impressionist",
+        "sub": "Loose, painterly"
+      },
+      "low-poly": {
+        "label": "Low Poly",
+        "sub": "Faceted 3D shapes"
+      }
     },
     "mood": {
-      "serene": { "label": "Serene", "sub": "Calm and peaceful" },
-      "dramatic": { "label": "Dramatic", "sub": "Bold and intense" },
-      "whimsical": { "label": "Whimsical", "sub": "Playful and light" },
-      "eerie": { "label": "Eerie", "sub": "Unsettling, mysterious" },
-      "epic": { "label": "Epic", "sub": "Grand and sweeping" },
-      "cozy": { "label": "Cozy", "sub": "Warm and inviting" }
+      "serene": {
+        "label": "Serene",
+        "sub": "Calm and peaceful"
+      },
+      "dramatic": {
+        "label": "Dramatic",
+        "sub": "Bold and intense"
+      },
+      "whimsical": {
+        "label": "Whimsical",
+        "sub": "Playful and light"
+      },
+      "eerie": {
+        "label": "Eerie",
+        "sub": "Unsettling, mysterious"
+      },
+      "epic": {
+        "label": "Epic",
+        "sub": "Grand and sweeping"
+      },
+      "cozy": {
+        "label": "Cozy",
+        "sub": "Warm and inviting"
+      },
+      "mysterious": {
+        "label": "Mysterious",
+        "sub": "Enigmatic, hidden"
+      },
+      "romantic": {
+        "label": "Romantic",
+        "sub": "Tender and warm"
+      },
+      "melancholic": {
+        "label": "Melancholic",
+        "sub": "Wistful, reflective"
+      },
+      "triumphant": {
+        "label": "Triumphant",
+        "sub": "Victorious, uplifting"
+      },
+      "nostalgic": {
+        "label": "Nostalgic",
+        "sub": "Fond, bittersweet"
+      },
+      "playful": {
+        "label": "Playful",
+        "sub": "Fun and lighthearted"
+      },
+      "peaceful": {
+        "label": "Peaceful",
+        "sub": "Still and quiet"
+      },
+      "ominous": {
+        "label": "Ominous",
+        "sub": "Threatening, tense"
+      }
     },
     "environment": {
-      "mountains": { "label": "Mountains", "sub": "" },
-      "urban": { "label": "Urban", "sub": "" },
-      "underwater": { "label": "Underwater", "sub": "" },
-      "space": { "label": "Space", "sub": "" },
-      "desert": { "label": "Desert", "sub": "" },
-      "interior": { "label": "Interior", "sub": "" }
-    },
-    "action": {
-      "remove-object": { "label": "Remove object", "sub": "Remove unwanted objects" },
-      "replace-background": { "label": "Replace background", "sub": "Change the background" },
-      "change-lighting": { "label": "Change lighting", "sub": "Adjust the lighting mood" },
-      "change-style": { "label": "Change style", "sub": "Transform the visual style" },
-      "extend-image": { "label": "Extend image", "sub": "Expand the image area" },
-      "restore-image": { "label": "Restore image", "sub": "Fix old or damaged photos" },
-      "upscale": { "label": "Upscale", "sub": "Increase image resolution" }
+      "mountains": {
+        "label": "Mountains",
+        "sub": ""
+      },
+      "urban": {
+        "label": "Urban",
+        "sub": ""
+      },
+      "underwater": {
+        "label": "Underwater",
+        "sub": ""
+      },
+      "space": {
+        "label": "Space",
+        "sub": ""
+      },
+      "desert": {
+        "label": "Desert",
+        "sub": ""
+      },
+      "interior": {
+        "label": "Interior",
+        "sub": ""
+      },
+      "beach": {
+        "label": "Beach",
+        "sub": ""
+      },
+      "forest": {
+        "label": "Forest",
+        "sub": ""
+      },
+      "castle": {
+        "label": "Castle",
+        "sub": ""
+      },
+      "market": {
+        "label": "Market",
+        "sub": ""
+      },
+      "ruins": {
+        "label": "Ancient Ruins",
+        "sub": ""
+      },
+      "arctic": {
+        "label": "Arctic",
+        "sub": ""
+      },
+      "jungle": {
+        "label": "Jungle",
+        "sub": ""
+      },
+      "cave": {
+        "label": "Cave",
+        "sub": ""
+      },
+      "rooftop": {
+        "label": "Rooftop",
+        "sub": ""
+      },
+      "temple": {
+        "label": "Temple",
+        "sub": ""
+      }
     },
     "extendDirection": {
-      "up": { "label": "Up", "sub": "" },
-      "down": { "label": "Down", "sub": "" },
-      "left": { "label": "Left", "sub": "" },
-      "right": { "label": "Right", "sub": "" },
-      "all-sides": { "label": "All sides", "sub": "" }
+      "up": {
+        "label": "Up",
+        "sub": ""
+      },
+      "down": {
+        "label": "Down",
+        "sub": ""
+      },
+      "left": {
+        "label": "Left",
+        "sub": ""
+      },
+      "right": {
+        "label": "Right",
+        "sub": ""
+      },
+      "all-sides": {
+        "label": "All sides",
+        "sub": ""
+      }
     },
     "upscaleFactor": {
-      "2x": { "label": "2×", "sub": "Double resolution" },
-      "4x": { "label": "4×", "sub": "Quadruple resolution" },
-      "8x": { "label": "8×", "sub": "Maximum detail" }
+      "2x": {
+        "label": "2×",
+        "sub": "Double resolution"
+      },
+      "4x": {
+        "label": "4×",
+        "sub": "Quadruple resolution"
+      },
+      "8x": {
+        "label": "8×",
+        "sub": "Maximum detail"
+      }
+    },
+    "colorPalette": {
+      "warm": {
+        "label": "Warm",
+        "sub": "Reds, oranges, ambers"
+      },
+      "cool": {
+        "label": "Cool",
+        "sub": "Blues and teals"
+      },
+      "monochrome": {
+        "label": "Monochrome",
+        "sub": "Single hue"
+      },
+      "pastel": {
+        "label": "Pastel",
+        "sub": "Soft, muted tones"
+      },
+      "vibrant": {
+        "label": "Vibrant",
+        "sub": "Saturated colors"
+      },
+      "earth-tones": {
+        "label": "Earth Tones",
+        "sub": "Browns and greens"
+      },
+      "neon": {
+        "label": "Neon",
+        "sub": "Electric, glowing"
+      },
+      "sepia": {
+        "label": "Sepia",
+        "sub": "Warm vintage brown"
+      }
+    },
+    "timeOfDay": {
+      "dawn": {
+        "label": "Dawn",
+        "sub": "First light"
+      },
+      "morning": {
+        "label": "Morning",
+        "sub": "Bright and fresh"
+      },
+      "midday": {
+        "label": "Midday",
+        "sub": "High sun"
+      },
+      "afternoon": {
+        "label": "Afternoon",
+        "sub": "Soft warm light"
+      },
+      "dusk": {
+        "label": "Dusk",
+        "sub": "Fading light"
+      },
+      "night": {
+        "label": "Night",
+        "sub": "Dark, artificial light"
+      },
+      "blue-hour": {
+        "label": "Blue Hour",
+        "sub": "Deep blue twilight"
+      }
+    },
+    "weather": {
+      "clear": {
+        "label": "Clear",
+        "sub": "No clouds"
+      },
+      "cloudy": {
+        "label": "Cloudy",
+        "sub": "Overcast sky"
+      },
+      "rainy": {
+        "label": "Rainy",
+        "sub": "Wet, reflective"
+      },
+      "stormy": {
+        "label": "Stormy",
+        "sub": "Dramatic clouds"
+      },
+      "foggy": {
+        "label": "Foggy",
+        "sub": "Low visibility, misty"
+      },
+      "snowy": {
+        "label": "Snowy",
+        "sub": "Snow-covered"
+      },
+      "windy": {
+        "label": "Windy",
+        "sub": "Motion in the air"
+      }
+    },
+    "actions": {
+      "remove-object": {
+        "label": "Remove object",
+        "sub": "Remove unwanted objects"
+      },
+      "replace-background": {
+        "label": "Replace background",
+        "sub": "Change the background"
+      },
+      "change-lighting": {
+        "label": "Change lighting",
+        "sub": "Adjust the lighting mood"
+      },
+      "change-style": {
+        "label": "Change style",
+        "sub": "Transform the visual style"
+      },
+      "extend-image": {
+        "label": "Extend image",
+        "sub": "Expand the image area"
+      },
+      "restore-image": {
+        "label": "Restore image",
+        "sub": "Fix old or damaged photos"
+      },
+      "upscale": {
+        "label": "Upscale",
+        "sub": "Increase image resolution"
+      },
+      "change-ratio": {
+        "label": "Change aspect ratio",
+        "sub": "Crop or recompose the frame"
+      },
+      "color-grade": {
+        "label": "Color grade",
+        "sub": "Adjust the color mood"
+      },
+      "add-object": {
+        "label": "Add object",
+        "sub": "Insert something new"
+      },
+      "blur-background": {
+        "label": "Blur background",
+        "sub": "Add depth of field"
+      },
+      "sharpen-denoise": {
+        "label": "Sharpen & denoise",
+        "sub": "Enhance clarity"
+      },
+      "colorize": {
+        "label": "Colorize",
+        "sub": "Add color to a B&W photo"
+      }
+    },
+    "blurIntensity": {
+      "subtle": {
+        "label": "Subtle",
+        "sub": "Light blur"
+      },
+      "medium": {
+        "label": "Medium",
+        "sub": "Balanced blur"
+      },
+      "strong": {
+        "label": "Strong",
+        "sub": "Heavy blur"
+      }
+    },
+    "colorizeTone": {
+      "natural": {
+        "label": "Natural",
+        "sub": "Realistic colors"
+      },
+      "vivid": {
+        "label": "Vivid",
+        "sub": "Bold, saturated"
+      },
+      "sepia": {
+        "label": "Sepia",
+        "sub": "Warm vintage tint"
+      }
     }
   }
 }

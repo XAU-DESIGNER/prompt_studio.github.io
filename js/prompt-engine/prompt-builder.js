@@ -12,6 +12,9 @@
 /** Is a single step's answer present in the config? */
 export function isStepAnswered(step, config) {
   const value = config[step.id];
+  if (step.multi) {
+    return Array.isArray(value) && value.length > 0;
+  }
   if (step.kind === "icon-list" || step.kind === "visual-grid" || step.kind === "icon-grid") {
     return value !== undefined && value !== null && value !== "";
   }

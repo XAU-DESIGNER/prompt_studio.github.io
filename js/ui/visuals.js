@@ -27,6 +27,8 @@ const ASPECT_RATIOS = {
   "4:3": [68, 51],
   "3:2": [72, 48],
   "21:9": [80, 34],
+  "2:3": [46, 68],
+  "5:4": [64, 51],
 };
 
 export function aspectRatioVisual(id) {
@@ -43,6 +45,10 @@ const COMPOSITIONS = {
   centered: { w: 82, h: 60, r: 11, cx: 50, cy: 39 },
   "negative-space": { w: 82, h: 60, r: 7, cx: 26, cy: 50 },
   "rule-of-thirds": { w: 82, h: 60, r: 9, cx: 66, cy: 38 },
+  silhouette: { w: 82, h: 60, r: 15, cx: 50, cy: 46, dark: true },
+  symmetry: { w: 82, h: 60, r: 10, cx: 50, cy: 39 },
+  framed: { w: 82, h: 60, r: 9, cx: 50, cy: 40 },
+  "leading-lines": { w: 82, h: 60, r: 7, cx: 64, cy: 34 },
 };
 
 export function compositionVisual(id) {
@@ -61,11 +67,20 @@ export function compositionVisual(id) {
       <line x1="${x}" y1="${y1}" x2="${x + c.w}" y2="${y1}" stroke="${FRAME.stroke}" stroke-width="0.8" stroke-dasharray="2 2"/>
       <line x1="${x}" y1="${y2}" x2="${x + c.w}" y2="${y2}" stroke="${FRAME.stroke}" stroke-width="0.8" stroke-dasharray="2 2"/>
     `;
+  } else if (id === "symmetry") {
+    grid = `<line x1="50" y1="${y}" x2="50" y2="${y + c.h}" stroke="${FRAME.stroke}" stroke-width="0.8" stroke-dasharray="2 2"/>`;
+  } else if (id === "framed") {
+    grid = `<rect x="${x + 10}" y="${y + 8}" width="${c.w - 20}" height="${c.h - 16}" rx="2" fill="none" stroke="${FRAME.stroke}" stroke-width="1.4" stroke-dasharray="3 2"/>`;
+  } else if (id === "leading-lines") {
+    grid = `
+      <line x1="${x}" y1="${y + c.h}" x2="${c.cx}" y2="${c.cy}" stroke="${FRAME.stroke}" stroke-width="1" opacity="0.6"/>
+      <line x1="${x + c.w}" y1="${y + c.h}" x2="${c.cx}" y2="${c.cy}" stroke="${FRAME.stroke}" stroke-width="1" opacity="0.6"/>
+    `;
   }
   return `<svg viewBox="0 0 100 100">
     <rect x="${x}" y="${y}" width="${c.w}" height="${c.h}" rx="3" fill="${FRAME.fill}" stroke="${FRAME.stroke}" stroke-width="2"/>
     ${grid}
-    <circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" fill="${FRAME.stroke}" opacity="0.85"/>
+    <circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" fill="${c.dark ? "#0a0d1a" : FRAME.stroke}" opacity="0.85"/>
   </svg>`;
 }
 
@@ -78,6 +93,9 @@ const CAMERA_ANGLES = {
   "dutch-angle": { rotate: 12, dy: 0 },
   overhead: { rotate: 0, dy: 0, overhead: true },
   "close-up-angle": { rotate: 0, dy: 0, big: true },
+  "worms-eye": { rotate: 0, dy: 16, extraBig: true },
+  "front-view": { rotate: 0, dy: 0 },
+  "profile-view": { rotate: 6, dy: 0 },
 };
 
 export function cameraAngleVisual(id) {
@@ -89,7 +107,7 @@ export function cameraAngleVisual(id) {
       <circle cx="50" cy="39" r="4" fill="${FRAME.stroke}"/>
     </svg>`;
   }
-  const scale = c.big ? 1.3 : c.small ? 0.7 : 1;
+  const scale = c.extraBig ? 1.55 : c.big ? 1.3 : c.small ? 0.7 : 1;
   return `<svg viewBox="0 0 100 100">
     <rect x="9" y="9" width="82" height="60" rx="3" fill="${FRAME.fill}" stroke="${FRAME.stroke}" stroke-width="2"/>
     <g transform="rotate(${c.rotate} 50 39) translate(0 ${c.dy})">
@@ -109,6 +127,12 @@ const LIGHTING = {
   backlit: { deg: 180, color: "#ffe6b0" },
   "low-key": { deg: 60, color: "#7d8bff", dark: true },
   neon: { deg: 300, color: "#ff5cd0" },
+  moonlight: { deg: 200, color: "#8fb3ff", dark: true },
+  candlelight: { deg: 40, color: "#ffb454" },
+  overcast: { deg: 90, color: "#c9d0e0" },
+  "hard-light": { deg: 45, color: "#fff6d8" },
+  "rim-light": { deg: 160, color: "#bdf3ff", dark: true },
+  volumetric: { deg: 70, color: "#d9c8ff", dark: true },
 };
 
 export function lightingVisual(id) {

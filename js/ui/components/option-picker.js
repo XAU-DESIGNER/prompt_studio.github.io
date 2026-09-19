@@ -12,8 +12,8 @@ function checkBadge() {
   return el("span", { className: "option-card-check", html: icon("check") });
 }
 
-function rowCheckBadge() {
-  return el("span", { className: "option-row-check", html: icon("check") });
+function rowCheckBadge(isMulti) {
+  return el("span", { className: `option-row-check${isMulti ? " is-multi" : ""}`, html: icon("check") });
 }
 
 /**
@@ -75,14 +75,16 @@ function renderIconGlyph(iconName, accent) {
 }
 
 function renderIconList(step, config, t, onSelect, accent) {
+  const isMulti = Boolean(step.multi);
   const selected = config[step.id];
-  const list = el("div", { className: "option-list" });
+  const selectedSet = new Set(isMulti ? (Array.isArray(selected) ? selected : []) : []);
+  const list = el("div", { className: `option-list${isMulti ? " is-multi" : ""}` });
   const [c1, c2] = ACCENT_COLORS[accent] || ACCENT_COLORS.image;
 
   for (const opt of step.options) {
     const optionId = typeof opt === "string" ? opt : opt.id;
     const iconName = typeof opt === "string" ? "sparkle" : opt.icon;
-    const isSelected = selected === optionId;
+    const isSelected = isMulti ? selectedSet.has(optionId) : selected === optionId;
     const label = t(`optionValues.${step.id}.${optionId}.label`);
     const sub = t(`optionValues.${step.id}.${optionId}.sub`);
 
@@ -92,7 +94,18 @@ function renderIconList(step, config, t, onSelect, accent) {
         type: "button",
         className: `option-row${isSelected ? " is-selected" : ""}`,
         "aria-pressed": String(isSelected),
-        on: { click: () => onSelect(optionId) },
+        on: {
+          click: () => {
+            if (!isMulti) {
+              onSelect(optionId);
+              return;
+            }
+            const next = new Set(selectedSet);
+            if (next.has(optionId)) next.delete(optionId);
+            else next.add(optionId);
+            onSelect(Array.from(next));
+          },
+        },
       },
       [
         el("span", {
@@ -104,7 +117,7 @@ function renderIconList(step, config, t, onSelect, accent) {
           el("span", { className: "option-row-title", text: label }),
           el("span", { className: "option-row-sub", text: sub }),
         ]),
-        rowCheckBadge(),
+        rowCheckBadge(isMulti),
       ]
     );
     list.appendChild(row);

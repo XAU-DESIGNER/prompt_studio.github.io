@@ -15,6 +15,7 @@ export function renderStepRail(steps, currentIndex, answeredFlags, t, category, 
     const canJump = index <= currentIndex || answeredFlags.slice(0, index).every(Boolean);
 
     const bullet = isDone ? icon("check") : String(index + 1);
+    const labelId = step.labelKey || step.id;
     const item = el(
       "button",
       {
@@ -26,7 +27,7 @@ export function renderStepRail(steps, currentIndex, answeredFlags, t, category, 
       [
         el("span", { className: "step-rail-bullet", html: bullet }),
         el("span", {}, [
-          el("span", { className: "step-rail-title", text: t(`templates.${category}.${task}.steps.${step.id}.title`) }),
+          el("span", { className: "step-rail-title", text: t(`templates.${category}.${task}.steps.${labelId}.title`) }),
         ]),
       ]
     );

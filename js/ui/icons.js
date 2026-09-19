@@ -39,6 +39,14 @@ export const icons = {
   upscale: wrap('<path d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"/>'),
   plus: wrap('<path d="M12 5v14M5 12h14"/>'),
   info: wrap('<circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/>'),
+  cropRatio: wrap('<path d="M6 2v16a2 2 0 0 0 2 2h16"/><path d="M2 6h16a2 2 0 0 1 2 2v16"/>'),
+  palette: wrap(
+    '<path d="M12 3a9 9 0 1 0 0 18c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1.1.9-2 2-2h2.3A4.7 4.7 0 0 0 21.5 10 9 9 0 0 0 12 3Z"/><circle cx="7.5" cy="10.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="12" cy="7.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="16.5" cy="10.5" r="1.2" fill="currentColor" stroke="none"/>'
+  ),
+  addObject: wrap('<rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M12 8.5v7M8.5 12h7"/>'),
+  sharpen: wrap('<path d="M12 3v18M3 12h18"/><path d="m7 7 5-4 5 4M7 17l5 4 5-4"/>'),
+  colorize: wrap('<path d="M12 21a7 7 0 0 0 7-7c0-4-7-11-7-11S5 10 5 14a7 7 0 0 0 7 7Z"/>'),
+  blurBg: wrap('<rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9.5" cy="10.5" r="2.6"/><path d="M15 9.5h2.5M15 13.5h4M13 17h5"/>'),
 };
 
 export function icon(name, extraClass = "") {

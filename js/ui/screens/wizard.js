@@ -11,12 +11,18 @@ import { navigate } from "../router.js";
 function renderTextField(step, config, category, task, onInput) {
   const field = el("div", { className: "field" });
   const value = config[step.id] || "";
+  const labelId = step.labelKey || step.id;
 
   const isTextarea = step.kind === "textarea";
   const input = el(isTextarea ? "textarea" : "input", {
     className: isTextarea ? "textarea-input" : "text-input",
-    placeholder: t(`templates.${category}.${task}.steps.${step.id}.placeholder`),
+    placeholder: t(`templates.${category}.${task}.steps.${labelId}.placeholder`),
     on: {
+      // IMPORTANT: onInput must NOT trigger a full re-render of the wizard.
+      // A full render() rebuilds this <input>/<textarea> as a brand new DOM
+      // node on every keystroke, which steals focus after the first
+      // character. See the caller in renderWizard() for how validity is
+      // kept in sync without touching this element.
       input: (e) => onInput(e.target.value),
     },
   });
@@ -116,27 +122,65 @@ export function renderWizard(container, { category, task }) {
     );
 
     const panel = el("div", { className: "wizard-panel" });
+    const labelId = step.labelKey || step.id;
     panel.appendChild(
-      el("h2", { className: "wizard-step-title", text: t(`templates.${category}.${task}.steps.${step.id}.title`) })
+      el("h2", { className: "wizard-step-title", text: t(`templates.${category}.${task}.steps.${labelId}.title`) })
     );
-    const desc = t(`templates.${category}.${task}.steps.${step.id}.description`);
-    if (desc && desc !== `templates.${category}.${task}.steps.${step.id}.description`) {
+    const desc = t(`templates.${category}.${task}.steps.${labelId}.description`);
+    if (desc && desc !== `templates.${category}.${task}.steps.${labelId}.description`) {
       panel.appendChild(el("p", { className: "wizard-step-desc", text: desc }));
     }
+    if (step.multi) {
+      panel.appendChild(el("p", { className: "wizard-step-desc", text: t("wizard.multiHint") }));
+    }
 
-    const setValue = (value) => {
+    // Ref to the "next" button so text/textarea steps can keep its
+    // disabled state in sync WITHOUT forcing a full re-render (see
+    // renderTextField's comment for why a re-render on every keystroke
+    // is the thing we're specifically avoiding here).
+    let nextBtnRef = null;
+
+    const setTextValue = (value) => {
+      config = { ...config, [step.id]: value };
+      if (nextBtnRef) nextBtnRef.disabled = !isStepValid(step, config);
+    };
+    const setOptionValue = (value) => {
       config = { ...config, [step.id]: value };
       render();
     };
 
     if (step.kind === "text" || step.kind === "textarea") {
-      panel.appendChild(renderTextField(step, config, category, task, setValue));
+      panel.appendChild(renderTextField(step, config, category, task, setTextValue));
     } else {
-      panel.appendChild(renderOptionPicker(step, config, t, setValue, template.accent));
+      panel.appendChild(renderOptionPicker(step, config, t, setOptionValue, template.accent));
     }
 
     const isLast = stepIndex === steps.length - 1;
     const canAdvance = isStepValid(step, config);
+
+    const nextBtn = el(
+      "button",
+      {
+        type: "button",
+        className: "btn btn-primary",
+        disabled: !canAdvance,
+        on: {
+          click: () => {
+            if (isLast) {
+              goResult();
+            } else {
+              stepIndex++;
+              render();
+            }
+          },
+        },
+      },
+      [
+        el("span", { text: isLast ? t("wizard.reviewPrompt") : t("wizard.next") }),
+        !isLast ? el("span", { className: "icon-directional", html: icon("chevronRight") }) : null,
+      ]
+    );
+    nextBtnRef = nextBtn;
 
     const nav = el("div", { className: "wizard-nav" }, [
       stepIndex > 0
@@ -148,28 +192,7 @@ export function renderWizard(container, { category, task }) {
         : el("button", { type: "button", className: "btn btn-ghost", on: { click: () => navigate("#/home") } }, [
             t("wizard.cancel"),
           ]),
-      el(
-        "button",
-        {
-          type: "button",
-          className: "btn btn-primary",
-          disabled: !canAdvance,
-          on: {
-            click: () => {
-              if (isLast) {
-                goResult();
-              } else {
-                stepIndex++;
-                render();
-              }
-            },
-          },
-        },
-        [
-          el("span", { text: isLast ? t("wizard.reviewPrompt") : t("wizard.next") }),
-          !isLast ? el("span", { className: "icon-directional", html: icon("chevronRight") }) : null,
-        ]
-      ),
+      nextBtn,
     ]);
     panel.appendChild(nav);
 
