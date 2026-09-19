@@ -2,19 +2,23 @@
 
 > Visual prompt engineering for everyone.
 
+A free, open-source tool for building better AI prompts through a visual interface.
+
 <p align="center">
   <a href="https://xau-designer.github.io/prompt_studio_pro/">
     <strong>🚀 Open Prompt Studio Pro</strong>
   </a>
+  ·
+  <a href="https://t.me/prompt_studio_pro_bot">
+    <strong>💬 Open in Telegram</strong>
+  </a>
 </p>
-
-A free, open-source tool for building better AI prompts through a visual interface.
 
 ## 🚧 Status
 
 **Early Development**
 
-This project is still under active development and may contain bugs, incomplete features, and breaking changes.
+Prompt Studio Pro is still under active development and may contain bugs, incomplete features, and breaking changes.
 
 ## ✨ Features
 
@@ -26,6 +30,7 @@ This project is still under active development and may contain bugs, incomplete 
 - Fully client-side
 - Free & ad-free
 - Open source
+- Telegram Mini App
 
 ## 🛠️ Built With
 
@@ -36,7 +41,7 @@ This project is still under active development and may contain bugs, incomplete 
 Have an idea, found a bug, or want to improve something?
 
 **Contributions, feedback, and ideas are welcome.**  
-Help me make Prompt Studio Pro better for everyone.
+Help make Prompt Studio Pro better for everyone.
 
 ---
 
